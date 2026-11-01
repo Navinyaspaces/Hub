@@ -94,9 +94,11 @@ const f=document.getElementById('f'),em=document.getElementById('email'),err=doc
 f.addEventListener('submit',e=>{e.preventDefault();const v=em.value.trim().toLowerCase();
   if(!v.endsWith(DOMAIN)||v.length<=DOMAIN.length){err.textContent="Please enter your "+DOMAIN+" email.";em.focus();return}
   err.textContent="";go.classList.add('busy');go.disabled=true;
-  setTimeout(()=>{document.body.classList.add('leaving');setTimeout(()=>location.href=HUB,600)},1100);});
+  setTimeout(()=>{document.body.classList.add('leaving');setTimeout(()=>{location.href=HUB;setTimeout(restore,3000)},600)},1100);});
 em.addEventListener('input',()=>err.textContent="");
-addEventListener('pageshow',()=>{document.body.classList.remove('leaving');go.classList.remove('busy');go.disabled=false;});
+function restore(){document.body.classList.remove('leaving');go.classList.remove('busy');go.disabled=false;}
+addEventListener('pageshow',restore);addEventListener('focus',restore);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)restore()});
 
 /* 3D particle network */
 const c=document.getElementById('bg'),x=c.getContext('2d');let W,H,D,P=[],mx=0,my=0,tx=0,ty=0;
