@@ -96,6 +96,8 @@ f.addEventListener('submit',e=>{e.preventDefault();const v=em.value.trim().toLow
   err.textContent="";go.classList.add('busy');go.disabled=true;
   setTimeout(()=>{document.body.classList.add('leaving');setTimeout(()=>location.href=HUB,600)},1100);});
 em.addEventListener('input',()=>err.textContent="");
+addEventListener('pageshow',()=>{document.body.classList.remove('leaving');go.classList.remove('busy');go.disabled=false;});
+
 /* 3D particle network */
 const c=document.getElementById('bg'),x=c.getContext('2d');let W,H,D,P=[],mx=0,my=0,tx=0,ty=0;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
